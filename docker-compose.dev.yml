@@ -1,0 +1,12 @@
+version: "3.5"
+
+services:
+#  default username and password: guest:guest
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    container_name: rabbitmq_django_shop_example
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+    volumes:
+      - "./rabbitmqdata:/var/lib/rabbitmq"

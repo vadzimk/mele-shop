@@ -17,3 +17,5 @@ class OrderAdmin(admin.ModelAdmin):
     list_filter = ['paid', 'created', 'updated']
     # an inline allows to include a model on the same edit page as its related model
     inlines = [OrderItemInline]
+
+

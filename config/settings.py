@@ -38,11 +38,12 @@ INSTALLED_APPS = [
 
     # local
     'shop',
+    'cart',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware', # manages cookies https://docs.djangoproject.com/ en/4.1/ref/settings/#sessions.
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -121,3 +122,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MEDIA_URL = 'media/'  # base url that serves media files in browser
 MEDIA_ROOT = BASE_DIR / 'media'  # local path where these files reside
+CART_SESSION_ID = 'cart'  # This is the key that you are going to use to store the cart in the user session
+

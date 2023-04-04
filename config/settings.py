@@ -9,8 +9,12 @@ https://docs.djangoproject.com/en/4.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
-
+import sys
 from pathlib import Path
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -44,7 +48,8 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware', # manages cookies https://docs.djangoproject.com/ en/4.1/ref/settings/#sessions.
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    # manages cookies https://docs.djangoproject.com/ en/4.1/ref/settings/#sessions.
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -126,3 +131,45 @@ MEDIA_URL = 'media/'  # base url that serves media files in browser
 MEDIA_ROOT = BASE_DIR / 'media'  # local path where these files reside
 CART_SESSION_ID = 'cart'  # This is the key that you are going to use to store the cart in the user session
 
+if os.getenv('EMAIL_HOST_USER') \
+        and os.getenv('EMAIL_HOST_PASSWORD'):
+    EMAIL_HOST = 'smtp.sendgrid.net'
+    EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
+    EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
+    EMAIL_PORT = 587  # use this port for TSL
+    EMAIL_USE_TLS = True
+    EMAIL_FROM = os.getenv('EMAIL_FROM')
+else:
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "formatters": {
+        "verbose": {
+            "format": "{levelname} {asctime} {module} {process:d} {thread:d} {message}",
+            "style": "{",
+        },
+        "simple": {
+            "format": "{levelname} [{module}] {message}",
+            "style": "{",
+        },
+    },
+    "handlers": {
+        "console": {
+            "class": "logging.StreamHandler",
+            "formatter": "simple"
+        },
+    },
+    "root": {
+        "handlers": ["console"],
+        "level": "INFO",
+    },
+    "loggers": {
+        "django": {
+            "handlers": ["console"],
+            "level": os.getenv("DJANGO_LOG_LEVEL", "INFO"),
+            "propagate": False,
+        },
+    },
+}

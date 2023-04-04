@@ -40,6 +40,8 @@ celery_app_name = "config.celery_app"
 run.celeryworker:
 	celery -A ${celery_app_name} worker -l info
 
+run.celery.flower:
+	celery -A ${celery_app_name} flower
 
 install.secrets:  # https://github.com/awslabs/git-secrets
 	git secrets --install

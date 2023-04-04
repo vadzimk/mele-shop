@@ -8,6 +8,7 @@ django = "*"
 pillow = "*"
 celery = "*"
 python-dotenv = "*"
+flower = "*"
 
 [dev-packages]
 

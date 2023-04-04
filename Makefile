@@ -45,3 +45,9 @@ run.celery.flower:
 
 install.secrets:  # https://github.com/awslabs/git-secrets
 	git secrets --install
+
+stripe.cli.login: # login stripe cli, if not installed: brew install stripe/stripe-cli/stripe
+	stripe login
+
+stripe.cli.listen:
+	stripe listen --forward-to localhost:8000/payment/webhook/

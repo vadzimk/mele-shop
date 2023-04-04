@@ -9,6 +9,7 @@ pillow = "*"
 celery = "*"
 python-dotenv = "*"
 flower = "*"
+stripe = "*"
 
 [dev-packages]
 

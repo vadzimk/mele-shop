@@ -43,7 +43,8 @@ INSTALLED_APPS = [
     # local
     'shop',
     'cart',
-    'orders'
+    'orders',
+    'payment',
 ]
 
 MIDDLEWARE = [
@@ -173,3 +174,7 @@ LOGGING = {
         },
     },
 }
+
+STRIPE_PUBLISHABLE_KEY = os.getenv('STRIPE_PUBLISHABLE_KEY')
+STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY')
+STRIPE_API_VERSION = os.getenv('STRIPE_API_VERSION')
